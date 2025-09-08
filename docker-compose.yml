@@ -1,0 +1,14 @@
+services:
+  models:
+    build: .
+    container_name: fastapi-models
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
